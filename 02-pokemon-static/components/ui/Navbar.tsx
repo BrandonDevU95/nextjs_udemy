@@ -24,22 +24,22 @@ export const Navbar = () => {
             alt="Pokemon Icon"
          />
          <NextLink href="/" passHref>
-            <Link>
+            <a style={{ display: "flex" }}>
                <Text color="white" h2>
                   P
                </Text>
                <Text color="white" h3>
                   okémon
                </Text>
-            </Link>
+            </a>
          </NextLink>
          <Spacer css={{ flex: 1 }} />
          <NextLink href="/favorites" passHref>
-            <Link>
+            <a>
                <Text color="white" h3>
                   Favoritos
                </Text>
-            </Link>
+            </a>
          </NextLink>
       </div>
    );
