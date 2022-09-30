@@ -10,6 +10,16 @@ const toggleFavorites = (id: number) => {
     return favorites;
 }
 
+const existInFavorites = (id: number): boolean => {
+    if(typeof window === 'undefined') return false;
+    
+    const favorites: number[] = JSON.parse(localStorage.getItem('favorites') || '[]');
+    return favorites.includes(id);
+    
+}
+
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
     toggleFavorites,
+    existInFavorites,
 }
