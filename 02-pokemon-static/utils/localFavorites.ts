@@ -18,8 +18,13 @@ const existInFavorites = (id: number): boolean => {
     
 }
 
+const pokemons = (): number[] => {
+    return JSON.parse(localStorage.getItem('favorites') || '[]');
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     toggleFavorites,
     existInFavorites,
+    pokemons
 }
