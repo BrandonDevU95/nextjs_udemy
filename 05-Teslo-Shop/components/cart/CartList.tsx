@@ -10,6 +10,7 @@ import {
 import { initialData } from "../../database/products";
 import NextLink from "next/link";
 import { ItemCounter } from "../ui";
+import { FC } from "react";
 
 const profuctsInCart = [
    initialData.products[0],
@@ -17,7 +18,11 @@ const profuctsInCart = [
    initialData.products[2],
 ];
 
-export const CartList = () => {
+interface Props {
+   editable: boolean;
+}
+
+export const CartList: FC<Props> = ({ editable = false }) => {
    return (
       <>
          {profuctsInCart.map((product) => (
@@ -41,8 +46,11 @@ export const CartList = () => {
                      <Typography variant="body1">
                         Talla: <strong>M</strong>
                      </Typography>
-                     {/* Condicional */}
-                     <ItemCounter />
+                     {editable ? (
+                        <ItemCounter />
+                     ) : (
+                        <Typography variant="h5">3 items</Typography>
+                     )}
                   </Box>
                </Grid>
                <Grid
@@ -53,10 +61,11 @@ export const CartList = () => {
                   flexDirection="column"
                >
                   <Typography variant="subtitle1">{`$${product.price}`}</Typography>
-                  {/* Editable */}
-                  <Button variant="text" color="secondary">
-                     Remover
-                  </Button>
+                  {editable && (
+                     <Button variant="text" color="secondary">
+                        Remover
+                     </Button>
+                  )}
                </Grid>
             </Grid>
          ))}
