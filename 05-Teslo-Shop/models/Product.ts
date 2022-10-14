@@ -10,7 +10,7 @@ const productSchema = new Schema({
     slug: {type: String, required: true, unique: true},
     tags: [{type: String}],
     title: {type: String, required: true},
-    type: {type: String, enum: ['shirt', 'pants', 'shoes', 'accessories'], message: 'Type is not valid'},
+    type: {type: String, enum: ['shirts','pants','hoodies','hats'], message: 'Type is not valid'},
     gender: {type: String, enum: ['men', 'women', 'kid', 'unisex'], message: 'Gender is not valid' }
 },{
     timestamps: true
