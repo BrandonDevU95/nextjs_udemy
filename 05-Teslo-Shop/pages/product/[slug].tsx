@@ -1,5 +1,5 @@
 import { Grid, Box, Typography, Button, Chip } from "@mui/material";
-import { GetServerSideProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { ShopLayout } from "../../components/layout";
 import { ProductSlidesHow, SizeSelector } from "../../components/products";
 import { ItemCounter } from "../../components/ui";
@@ -61,17 +61,53 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
 export default ProductPage;
 
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
+   const productSlugs = await dbProducts.getAllProductsSlugs();
+
+   return {
+      paths: productSlugs.map(({ slug }) => ({
+         params: {
+            slug,
+         },
+      })),
+      fallback: "blocking",
+   };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+   const { slug = "" } = params as { slug: string };
+   const product = await dbProducts.getProductsBySlug(slug);
+
+   if (!product) {
+      return {
+         redirect: {
+            destination: "/",
+            permanent: false,
+         },
+      };
+   }
+
+   return {
+      props: {
+         product,
+      },
+      revalidate: 60 * 60 * 24,
+   };
+};
+
 // SSR
 // export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 //    const { slug = "" } = params as { slug: string };
 //    const product = await dbProducts.getProductsBySlug(slug);
 
-//    if (!product) {
-//       return {
+// if (!product) {
+//    return {
+//       redirect: {
 //          destination: "/",
 //          permanent: false,
-//       };
-//    }
+//       },
+//    };
+// }
 
 //    return {
 //       props: {
