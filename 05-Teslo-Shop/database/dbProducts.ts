@@ -41,3 +41,5 @@ export const getProductsByTerm = async (term: string): Promise<IProduct[]> => {
 
    return products;
 };
+
+export const getAllProducts = (): Promise<IProduct[]> => {};
