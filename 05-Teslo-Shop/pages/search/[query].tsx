@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
    const foundProducts = products.length > 0;
 
    if (!foundProducts) {
-      const products = await dbProducts.getAllProducts();
+      products = await dbProducts.getAllProducts();
    }
 
    return {
