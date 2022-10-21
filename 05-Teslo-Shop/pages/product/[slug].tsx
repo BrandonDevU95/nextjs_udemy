@@ -33,6 +33,13 @@ const ProductPage: NextPage<Props> = ({ product }) => {
       }));
    };
 
+   const onUpdateQuantity = (quantity: number) => {
+      setTempCartProduct((currentProduct) => ({
+         ...currentProduct,
+         quantity,
+      }));
+   };
+
    const onAddProduct = () => {
       console.log("first");
    };
@@ -55,9 +62,9 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                   <Box sx={{ my: 2 }}>
                      <Typography variant="subtitle2">Cantidad</Typography>
                      <ItemCounter
-                        currentValue
-                        updateQuantity
-                        maxValue={product.inStock}
+                        currentValue={tempCartProduct.quantity}
+                        updateQuantity={onUpdateQuantity}
+                        maxValue={product.inStock > 10 ? 10 : product.inStock}
                      />
                      <SizeSelector
                         sizes={product.sizes}
